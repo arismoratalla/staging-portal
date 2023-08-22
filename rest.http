@@ -9,10 +9,84 @@
 # "role":"admin"
 # }
 
-POST http://localhost:3000/api/auth/login
+POST http://192.168.0.6:3000/api/auth/login
 Content-Type: application/json
 
 {
 "email":"arismoratalla@gmail.com",
 "password":"12345678"
 }
+
+# GET http://localhost:3000/api/auth/users
+# Content-Type: application/json
+
+# POST http://localhost:3000/api/hrmis/inAM
+# Content-Type: application/json
+
+# {
+# "employee_num":"MRD-0426"
+# }
+
+# DMS Import API for Memo and SO
+# get http://localhost:3000/api/dms/import
+# Content-Type: application/json
+
+# GET http://192.168.1.20:5000/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&account=dost9ict&passwd=D057R3g10n9&session=FileStation&format=cookie
+
+
+# GET http://192.168.1.20:5000/webapi/auth.cgi
+
+
+
+### Authenticate
+# POST http://192.168.1.20:5000/webapi/auth.cgi
+# Content-Type: application/x-www-form-urlencoded
+
+# api=SYNO.API.Auth
+# &version=3
+# &method=login
+# &account='dost9ict'
+# &passwd='D057R3g10n9'
+# &session=FileStation
+# &format=cookie
+
+
+### Upload File to Synology
+# POST http://192.168.1.20:5000/webapi/FileStation/upload.cgi HTTP/1.1
+# # POST http://192.168.1.20:5000/webapi/entry.cgi HTTP/1.1
+# Content-Type: multipart/form-data; boundary=BOUND12345
+
+# --BOUND12345
+# Content-Disposition: form-data; name="api"
+
+# SYNO.FileStation.Upload
+# --BOUND12345
+# Content-Disposition: form-data; name="version"
+
+# 2
+# --BOUND12345
+# Content-Disposition: form-data; name="method"
+
+# upload
+# --BOUND12345
+# Content-Disposition: form-data; name="destination"
+
+# /Fileserver/1_ORD/Issuances/Memo/2023
+# --BOUND12345
+# Content-Disposition: form-data; name="create_parents"
+
+# true
+# --BOUND12345
+# Content-Disposition: form-data; name="overwrite"
+
+# true
+# --BOUND12345
+# Content-Disposition: form-data; name="_sid"
+
+# BI98xlDTVZJFwfbJMv1PltZHdYmeMVYMKoXSr6wT554fWzwRYmT8b7_OKk5TuMdrl0c92vnCiGbUj9r52J6iXE
+# --BOUND12345
+# Content-Disposition: form-data; name="file"; filename="YOUR_FILENAME_HERE"
+# Content-Type: application/pdf
+
+# < ./SO_014_ARTA.pdf
+# --BOUND12345--

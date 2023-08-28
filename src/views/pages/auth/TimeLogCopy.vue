@@ -1,23 +1,18 @@
 <script setup>
-import { ref } from 'vue';
-import { useCurrentTime } from '@/layout/composables/useCurrentTime';
+// import { useLayout } from '@/layout/composables/layout';
+import { ref, computed } from 'vue';
+import AppConfig from '@/layout/AppConfig.vue';
 import { useDtrStore } from '@/stores/dtr';
-
-import Employee from './Employee.vue';
-
-// const layoutWrapper = document.querySelector('.layout-wrapper');
-// layoutWrapper.classList.add('layout-static-inactive');
-
-// let date = new Date('2023-08-07T00:00:00Z'); // Date in ISO 8601 format
-// console.log(date)
-// let timestamp = date.getTime();
-// console.log(timestamp); 
+import { useCurrentTime } from '@/layout/composables/useCurrentTIme'
+import Employee from '@/components/Employee.vue';
 
 const dtrStore = useDtrStore();
 let earlybirds = ref(dtrStore.earlyBirds());
 let nightowls = ref(dtrStore.nightOwls());
-// const withinR9 = ref(dtrStore.earlyBirds());
-// const outsideR9 = ref(dtrStore.earlyBirds());
+
+const logoUrl = computed(() => {
+    return `layout/images/logo.png`;
+});
 
 const { currentTime } = useCurrentTime();
 const formatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -37,7 +32,55 @@ const timeOut = (period) => {
     activeButton.value = `${period}-OUT`;
 };
 
+// Extracted the common logic to clear the dtrStore and other values
+function clearData() {
+  emp_number.value = '';
+  msg.value = null;
+  dtrStore.user_id = null;
+  dtrStore.fullname = null;
+  dtrStore.emp_number = null;
+  dtrStore.date = null;
+  dtrStore.inAM = null;
+  dtrStore.outAM = null;
+  dtrStore.inPM = null;
+  dtrStore.outPM = null;
+  dtrStore.ip = null;
+}
+
 async function submit() {
+  try {
+    let dtr;
+    switch (activeButton.value) {
+      case 'AM-IN':
+        dtr = await dtrStore.TimeInAM(emp_number.value);
+        msg.value = dtr ? 'Good Morning ' + dtrStore.fullname : 'Employee not found';
+        break;
+      case 'AM-OUT':
+        dtr = await dtrStore.TimeOutAM(emp_number.value);
+        msg.value = dtr ? 'Enjoy your lunch ' + dtrStore.fullname : 'Employee not found';
+        break;
+      case 'PM-IN':
+        dtr = await dtrStore.TimeInPM(emp_number.value);
+        msg.value = dtr ? 'Good Afternoon ' + dtrStore.fullname : 'Employee not found';
+        break;
+      case 'PM-OUT':
+        dtr = await dtrStore.TimeOutPM(emp_number.value);
+        msg.value = dtr ? 'Goodbye ' + dtrStore.fullname : 'Employee not found';
+        break;
+    }
+    
+    setTimeout(() => {
+      clearData();
+    }, 3000);
+
+  } catch (error) {
+    console.log('ERROR:', error);
+    msg.value = 'Something went wrong';
+  }
+}
+
+/*
+async function submit1() {
     switch (activeButton.value) {
         case 'AM-IN': {
             try {
@@ -210,78 +253,68 @@ async function submit() {
         default:
     }
 }
+*/
 </script>
 
 <template>
-    <!-- <div id="employees" class="flex">
-        <div class="card col-6 mr-2">
+  <div class="row ml-2 mr-2">
+    <div class="card col-5">
             <h4>Present</h4>
-            <h5>Early Birds ()</h5>
+            <h5>Early Birds</h5>
 
             <Employee v-for="bird in dtrStore.earlybirds" :employee="bird" :key="bird.user_id" />
 
-            <h5>Night Owls ()</h5>
+            <h5>Night Owls</h5>
             <Employee v-for="owl in dtrStore.nightowls" :employee="owl" :key="owl.user_id" />
-        </div>
+    </div>
 
-        <div class="card col-3 mr-2">
-            <h4>On Official Travel</h4>
-            <h5>Within Region 9</h5>
-            <Employee v-for="emp in dtrStore.withinR9" :employee="emp" :key="emp.user_id" />
-
-            <h5>Outside Region 9</h5>
-            <Employee v-for="emp in dtrStore.employees" :employee="emp" :key="emp.user_id" />
-        </div>
-
-        <div class="card col-3">
-            <h4>Statistics</h4>
-            <Button label="Present" icon="pi pi-users" badge="8" class="mr-2"></Button>
-            <Button label="Absent" icon="pi pi-users" badge="8" class="p-button-warning mr-2" badgeClass="p-badge-danger"></Button>
-        </div>
-    </div> -->
-
-    <div id="clock" class="flex">
-        <div class="m-auto" style="border-radius: 56px; padding: 0.5rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-            <div class="w-full m-auto surface-card pt-4 pb-4 px-8 sm:px-8" style="border-radius: 53px">
-                <div v-if="msg" class="w-full text-center font-semibold bg-cyan-400 text-white text-2xl mb-3 p-3 border-2">
+    <div class="card col-7">
+    <!-- <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"> -->
+        <div class="flex flex-column align-items-center justify-content-center">
+            <img :src="logoUrl" alt="DOST-IX Logo" class="mb-5 w-6rem flex-shrink-0" />
+            <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(2, 81, 145, 0) 75%)">
+                <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
+                  <div v-if="msg" class="w-full text-center font-semibold bg-cyan-400 text-white text-2xl mb-3 p-3 border-2">
                     {{ msg }}
-                </div>
-                <div v-if="!msg" class="w-full text-center font-semibold text-2xl mb-3 p-3">&nbsp;</div>
-                <!-- <div class="w-full lg:w-1/4 m-auto p-7 shadow-lg shadow-pink-400 border-4 border-t-purple-600 border-r-pink-600 border-b-pink-600 border-l-indigo-600 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"> -->
-                <InputText id="emp_number" v-model="emp_number" type="text" :placeholder="placeholder" class="w-full md:w-40rem mb-4 text-center" style="padding: 1.5rem" @keyup.enter="submit" />
-                <span class="p-buttonset am-group">
-                    <Button @click="timeIn('AM')" :class="{ active: activeButton === 'AM-IN' }" label="AM Time In" icon="pi pi-sign-in" />
-                    <Button @click="timeOut('AM')" :class="{ active: activeButton === 'AM-OUT' }" label="AM Time Out" icon="pi pi-sign-out" />
-                </span>
-                &nbsp;
-                <span class="p-buttonset pm-group p-2">
-                    <Button @click="timeIn('PM')" :class="{ active: activeButton === 'PM-IN' }" label="PM Time In" icon="pi pi-sign-in" />
-                    <Button @click="timeOut('PM')" :class="{ active: activeButton === 'PM-OUT' }" label="PM Time Out" icon="pi pi-sign-out" />
-                </span>
-                &nbsp;
-                <p class="font-bold text-blue-700 pt-4 text-8xl font-semibold -mt-5">
-                    {{ currentTime.toLocaleTimeString() }}
-                </p>
-                <p class="border-4 border-indigo-500/100 text-center text-blue-700 text-6xl font-bold -mt-6">
-                    {{ currentTime.toLocaleDateString('en-US', formatOptions) }}
-                </p>
+                  </div>
+                  <div v-if="!msg" class="w-full text-center font-semibold text-2xl mb-3 p-3">&nbsp;</div>
+                    <InputText id="emp_number" v-model="emp_number" type="text" :placeholder="placeholder" class="w-full md:w-50rem mb-4 text-center" style="padding: 1.5rem" @keyup.enter="submit" />
+                    <div class="row">
+                      <span class="p-buttonset am-group">
+                          <Button @click="timeIn('AM')" :class="{ active: activeButton === 'AM-IN' }" label="AM Time In" icon="pi pi-sign-in" />
+                          <Button @click="timeOut('AM')" :class="{ active: activeButton === 'AM-OUT' }" label="AM Time Out" icon="pi pi-sign-out" />
+                      </span>
+                      <span class="p-buttonset pm-group p-2">
+                          <Button @click="timeIn('PM')" :class="{ active: activeButton === 'PM-IN' }" label="PM Time In" icon="pi pi-sign-in" />
+                          <Button @click="timeOut('PM')" :class="{ active: activeButton === 'PM-OUT' }" label="PM Time Out" icon="pi pi-sign-out" />
+                      </span>
+                    </div>
+                    <p class="font-bold text-blue-700 text-8xl text-center font-semibold">
+                        {{ currentTime.toLocaleTimeString() }}
+                    </p>
+                    <p class="border-4 border-indigo-500/100 text-center text-blue-700 text-6xl font-bold -mt-6">
+                        {{ currentTime.toLocaleDateString('en-US', formatOptions) }}
+                    </p>
+                  </div>
             </div>
         </div>
+    <!-- </div> -->
     </div>
+    <AppConfig simple />
+  </div>
 </template>
 
-<style>
+<style scoped>
 #clock {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 80px;
 }
 
 .fixed-width {
-    width: 200px;
+    width: 400px;
     /* Adjust to your desired width */
 }
 
@@ -296,5 +329,25 @@ async function submit() {
     background-color: #ffd700;
     /* Gold color for active status and hover */
     color: #000;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap; /* Prevent items from wrapping into multiple lines */
+    margin-top: -10px;
+    margin-bottom: -25px;
+    padding-left: 5px;
+}
+
+/* If you'd like to put some space between the InputText and the button groups */
+.row > * {
+    margin: 0 10px; /* This will add 10px margin to left and right of all direct children of .row */
+}
+
+/* You might want to update the width of InputText for better alignment */
+.w-full.md\:w-50rem {
+    width: calc(100% - 250px); /* Full width minus space occupied by buttons */
 }
 </style>

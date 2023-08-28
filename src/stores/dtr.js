@@ -3,7 +3,8 @@ import { defineStore } from 'pinia';
 
 // const apiUrl = 'http://localhost:3001';
 // const apiUrl = 'http://192.168.0.6:3000';
-const apiUrl = 'http://172.16.110.78:3000';
+// const apiUrl = 'http://172.16.110.78:3000';
+const apiUrl = 'http://192.168.0.3:3000';
 // const api = axios.create({
 //     baseURL: 'http://192.168.0.3:3000',
 // });
@@ -101,26 +102,29 @@ export const useDtrStore = defineStore('dtr', {
         /**
          * Employee Time In - AM
          * @param {String} emp_number Employee Number
-         * @returns Boolean - whether success or not
+         * @returns JSON Object
+         *              success: false,
+         *              status: Timelog status,
+         *              message: Timelog message,
+         *              data: employee data
          */
         async TimeInAM(emp_number) {
             try {
                 const { data: inAM } = await axios.post(apiUrl + '/api/hrmis/inAM', {
+                // const inAM = await axios.post(apiUrl + '/api/hrmis/inAM', {
                     employee_num: emp_number,
                 });
 
                 if (!inAM.success) {
-                    return false; // action failed
+                    return false;
                 }
-
-                const { data } = inAM;
-
-                this.fullname = data.remarks;
-                this.date = data.date;
-                this.inAM = data.inAM;
-                this.ip = data.ip;
-
-                return true;
+                    // const { data } = inAM;
+                return {
+                    success: true,
+                    status: inAM.status,
+                    message: inAM.message,
+                    data: inAM.data
+                }                
             } catch (error) {
                 console.log('ERROR:', error);
                 if (!error.response) {
@@ -128,7 +132,10 @@ export const useDtrStore = defineStore('dtr', {
                 }
 
                 const { data } = error.response;
-                this.message = data.message; // error on api API
+                // this.message = data.message; // error on api API
+                this.message = data; // error on api API
+                // console.log(data);
+                return data;
             }
         },
 

@@ -1,4 +1,4 @@
-# POST http://localhost:3000/api/auth/register
+# POST http://192.168.0.3:3000/api/auth/register
 # Content-Type: application/json
 
 # {
@@ -9,10 +9,13 @@
 # "role":"admin"
 # }
 
-POST http://localhost:3000/api/auth/login
+# POST http://192.168.0.3:3000/api/hrmis/inAM
+# Content-Type: application/json
+
+# POST http://172.16.110.78:3000/api/hrmis/inAM
+POST http://192.168.0.3:3000/api/hrmis/inAM
 Content-Type: application/json
 
 {
-"email":"arismoratalla@gmail.com",
-"password":"12345678"
+"employee_num":"ted-0418"
 }

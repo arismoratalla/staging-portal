@@ -159,6 +159,11 @@ const router = createRouter({
             component: () => import('@/views/pages/Landing.vue'),
         },
         {
+            path: '/auth/dtr',
+            name: 'dtr',
+            component: () => import('@/views/pages/auth/TimeLog.vue'),
+        },
+        {
             path: '/pages/notfound',
             name: 'notfound',
             component: () => import('@/views/pages/NotFound.vue'),

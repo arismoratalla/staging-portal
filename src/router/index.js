@@ -183,6 +183,16 @@ const router = createRouter({
             name: 'error',
             component: () => import('@/views/pages/auth/Error.vue'),
         },
+        {
+            path: '/rstw/game',
+            name: 'game',
+            component: () => import('@/views/pages/rstw/Game.vue'),
+        },
+        {
+            path: '/rstw/innovation',
+            name: 'innovation',
+            component: () => import('@/views/pages/rstw/InnovationLounge.vue'),
+        },
     ],
 });
 

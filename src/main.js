@@ -3,6 +3,9 @@ import App from './App.vue';
 import router from './router';
 
 import { createPinia } from 'pinia';
+// import Flipper from "vue-flip-transition";
+// import Flashcard from 'vue-flashcard';
+// import Confetti from 'canvas-confetti';
 
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
@@ -104,6 +107,7 @@ import VirtualScroller from 'primevue/virtualscroller';
 
 import CodeHighlight from '@/components/CodeHighlight.vue';
 import BlockViewer from '@/components/BlockViewer.vue';
+import Flashcard from '@/components/Flashcard.vue';
 
 import '@/assets/styles.scss';
 import axios from 'axios';
@@ -112,6 +116,7 @@ const pinia = createPinia();
 
 const app = createApp(App);
 
+// app.use(Flipper);
 app.use(pinia);
 app.use(router);
 app.use(PrimeVue, { ripple: true });
@@ -159,6 +164,7 @@ app.directive('styleclass', StyleClass);
 
 app.component('CodeHighlight', CodeHighlight);
 app.component('BlockViewer', BlockViewer);
+app.component('Flashcard', Flashcard);
 
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);

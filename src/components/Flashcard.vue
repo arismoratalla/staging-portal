@@ -101,7 +101,7 @@ export default {
   },
   computed: {
     dynamicColorBack() {
-      return this.status === 'win' ? '#2ecc71' : '#f1c40f';  // green for win, yellow for try again
+      return this.status === 'win' ? '#2ecc71' : '#f1c40f';
     },
     dynamicHeaderBack() {
       return this.status === 'win' ? 'Congratulations ! ! !' : 'Sorry ! ! !';

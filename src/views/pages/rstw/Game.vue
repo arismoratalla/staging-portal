@@ -4,7 +4,7 @@
       Remaining Tries:
       <br/>
       <h1>{{ remainingTries }}</h1>
-      <button @click="resetGame" class="reset-button">Reset</button>
+      
     </div>
     <div id="game-container" class="game-container">
       <Flashcard 
@@ -19,14 +19,28 @@
         :isGameActive="isGameActive">
       </Flashcard>
     </div>
-    <div class="game-over-container">
+    <div v-if="gameOver" class="modal">
+    <div class="modal-content">
+        <!-- <span class="close-button" @click="resetGame">×</span> -->
+        <div v-if="remainingTries === 0" class="game-over-message">
+          Game Over! <br/> You have no more tries.
+        </div>
+        <div v-if="remainingTries > 0" class="game-over-message">
+          Congratulations! <br/> You win! <br>
+          Claim your Voucher<br>for the Bazaar!!!
+        </div><br>
+        <button @click="resetGame" class="reset-button">Reset Game</button>
+      </div>
+    </div>
+
+    <!-- <div class="game-over-container">
       <div v-if="gameOver && remainingTries === 0" class="game-over-message">
         Game Over! <br/> You have no more tries.
       </div>
       <div v-if="gameOver && remainingTries > 0" class="game-over-message">
         Congratulations! <br/> You win!
       </div>
-    </div>
+    </div> -->
     <div class="stats-container">
       <h3>Statistics</h3>
       <div>Wins on 1st try: {{ stats.firstTryWins }}</div>
@@ -38,14 +52,29 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue';
-// import confetti from 'canvas-confetti';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import confetti from 'canvas-confetti';
+import useSound from "vue-use-sound";
+
+import selectCard from '/layout/audio/select-card.mp3'
+import selectAndWin from '/layout/audio/win.mp3'
+import selectAndLose from '/layout/audio/lose.wav'
 
 const router = useRouter();
 let confettiInterval;
+
+const playMusic = () => {
+  const audio = new Audio('/layout/audio/rstw-game-bg.mp3');
+  audio.loop = true;
+  audio.play();
+}
+
+const [selectcard] = useSound(selectCard);
+const [selectandwin] = useSound(selectAndWin);
+const [selectandlose] = useSound(selectAndLose);
+
+playMusic();
 
 onMounted(() => {
   loadStats();
@@ -128,20 +157,22 @@ const generateFlashcards = (totalCards, maxWinCards) => {
 };
 
 const resetGame = () => {
-  // location.reload();
-  router.push('/rstw/game');
+  location.reload();
+  // router.push('/rstw/game');
 };
 
-const flashcards = ref(generateFlashcards(20, 10));
+const flashcards = ref(generateFlashcards(20, 3));
 
 const decrementTries = (status) => {
-  if (gameOver.value) return;
+  if (gameOver.value) {
+    selectandlose();
+    return;
+  }
 
   if (status === 'win') {
     updateStats(status);
     gameOver.value = true;
-    // requestAnimationFrame
-    // winAnimation();
+    selectandwin();
     if (confettiInterval) clearInterval(confettiInterval);
 
     // Start new confetti interval
@@ -155,10 +186,12 @@ const decrementTries = (status) => {
     return;
   }
 
+  selectcard();
   remainingTries.value--;
 
   if (remainingTries.value === 0) {
     updateStats('lose');
+    selectandlose();
     gameOver.value = true;
   }
 };
@@ -185,7 +218,7 @@ const decrementTries = (status) => {
 .tries-container {
   position: absolute; /* Absolute positioning */
   left: 0;  /* Positioned at the left */
-  top: 30%; /* Centered vertically */
+  top: 50%; /* Centered vertically */
   transform: translateY(-50%); /* Further centering adjustment */
   background: rgba(255,255,255,0.8); /* Background color with some opacity */
   padding: 50px; /* Padding around text */
@@ -199,15 +232,61 @@ const decrementTries = (status) => {
   text-align: center;  /* Centers the text */
 }
 
-.game-over-container {
-  position: absolute; /* Absolute positioning */
-  right: 0;  /* Positioned at the left */
-  top: 50%; /* Centered vertically */
-  transform: translateY(-50%); /* Further centering adjustment */
-  background: rgba(255,255,255,0.8); /* Background color with some opacity */
-  padding: 10px; /* Padding around text */
-  border-radius: 0 10px 10px 0; /* Rounded corners on right side */
+/* .game-over-container {
+  position: absolute; 
+  left: 35%; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  background: rgba(255,255,255,0.8); 
+  padding: 10px; /
+  border-radius: 0 10px 10px 0; 
   text-align: center;
+} */
+
+/* The Modal (background) */
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  vertical-align: middle;
+  text-align: center;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 30%;
+  /* height: 40%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 10px; 
+  transform: translate(-50%, -50%);
+}
+
+/* The Close Button */
+.close-button {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 .game-over-message {
   font-size: 3em;
@@ -218,8 +297,8 @@ const decrementTries = (status) => {
 
 .stats-container {
   position: absolute; /* Absolute positioning */
-  left: 0;  /* Positioned at the left */
-  top: 60%; /* Centered vertically */
+  right: 0;  /* Positioned at the left */
+  top: 50%; /* Centered vertically */
   transform: translateY(-50%); /* Further centering adjustment */
   background: rgba(255,255,255,0.8); /* Background color with some opacity */
   padding: 60px; /* Padding around text */

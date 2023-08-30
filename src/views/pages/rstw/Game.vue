@@ -8,9 +8,10 @@
     </div>
     <div id="game-container" class="game-container">
       <Flashcard 
-        v-for="(card, index) in flashcards" 
+        v-for="(card, index) in shuffledFlashcards" 
         :key="index"
         @cardClicked="decrementTries(card.status)"
+        :externalToggle="resetToggle"
         :headerFront="card.headerFront" 
         :front="card.front" 
         :back="card.back"
@@ -52,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import confetti from 'canvas-confetti';
 import useSound from "vue-use-sound";
@@ -63,6 +64,15 @@ import selectAndLose from '/layout/audio/lose.wav'
 
 const router = useRouter();
 let confettiInterval;
+
+// Computed property to get shuffled flashcards
+const shuffledFlashcards = computed(() => shuffleArray([...flashcards.value]));
+const resetToggle = ref(false);
+
+const unflipAllCards = () => {
+  resetToggle.value = false; // Unflip all cards
+  setTimeout(() => { resetToggle.value = null; }, 50); // Allow DOM to update
+};
 
 const playMusic = () => {
   const audio = new Audio('/layout/audio/rstw-game-bg.mp3');
@@ -144,7 +154,7 @@ const generateFlashcards = (totalCards, maxWinCards) => {
   let winCount = 0;
   for (let i = 0; i < totalCards; i++) {
     let winOrLose = 'tryAgain';
-    if (winCount < maxWinCards && Math.random() > 0.5) {
+    if (winCount < maxWinCards && Math.random() > 0.85) {
       winOrLose = 'win';
       winCount++;
     }
@@ -157,8 +167,11 @@ const generateFlashcards = (totalCards, maxWinCards) => {
 };
 
 const resetGame = () => {
-  location.reload();
-  // router.push('/rstw/game');
+  // location.reload();
+  unflipAllCards();
+  remainingTries.value = 3;
+  gameOver.value = false;
+  flashcards.value = generateFlashcards(20, 3); // Resetting the flashcards
 };
 
 const flashcards = ref(generateFlashcards(20, 3));
@@ -195,6 +208,25 @@ const decrementTries = (status) => {
     gameOver.value = true;
   }
 };
+
+function shuffleArray(array) {
+  let currentIndex = array.length, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
 </script>
 
 <style scoped>

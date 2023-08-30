@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click="handleClick" 
-          :class="{highlight: highlight}"
+          :class="{flipped: flipped || externalFlip}"
           v-bind:style="{backgroundColor: colorFront, color: colorTextFront}" 
           v-show="!isToggle" 
           class="animated flipInX flashcard">
@@ -30,13 +30,16 @@ export default {
   data() {
     return {
       isToggle: false,
-      isHighlighted: false, 
     };
   },
   props: {
       status: {
         type: String,
         default: 'tryAgain'
+      },
+      externalToggle: {
+        type: Boolean,
+        default: false,
       },
       isGameActive: {
         type: Boolean,
@@ -109,6 +112,11 @@ export default {
     dynamicFooterBack() {
       return this.status === 'win' ? 'Claim your Voucher usable at the Bazaar.' : '';
     }
+  },
+  watch: {
+    externalToggle: function(newVal, oldVal) {
+      this.isToggle = newVal;
+    },
   },
   methods: {
     handleClick() {

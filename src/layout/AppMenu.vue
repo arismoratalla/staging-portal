@@ -32,7 +32,7 @@ const model = ref([
     },
     {
         label: 'Links',
-        items: [{ label: 'Daily Time Record', icon: 'pi pi-fw pi-home', to: '/dtr' }],
+        items: [{ label: 'Daily Time Record', icon: 'pi pi-fw pi-home', to: '/auth/dtr' }],
     },
 ]);
 </script>

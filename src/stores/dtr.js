@@ -2,9 +2,9 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 
 // const apiUrl = 'http://localhost:3001';
-const apiUrl = 'http://192.168.1.2:3000';
+// const apiUrl = 'http://192.168.1.2:3000';
 // const apiUrl = 'http://172.16.110.78:3000';
-// const apiUrl = 'http://192.168.0.3:3000';
+const apiUrl = 'http://192.168.0.3:3000';
 // const api = axios.create({
 //     baseURL: 'http://192.168.0.3:3000',
 // });
@@ -118,7 +118,7 @@ export const useDtrStore = defineStore('dtr', {
                 if (!inAM.success) {
                     return false;
                 }
-                    // const { data } = inAM;
+
                 return {
                     success: true,
                     status: inAM.status,
@@ -132,9 +132,7 @@ export const useDtrStore = defineStore('dtr', {
                 }
 
                 const { data } = error.response;
-                // this.message = data.message; // error on api API
                 this.message = data; // error on api API
-                // console.log(data);
                 return data;
             }
         },
@@ -154,14 +152,12 @@ export const useDtrStore = defineStore('dtr', {
                     return false; // action failed
                 }
 
-                const { data } = outAM;
-
-                this.fullname = data.remarks;
-                this.date = data.date;
-                this.inAM = data.inAM;
-                this.outAM = data.outAM;
-
-                return true;
+                return {
+                    success: true,
+                    status: outAM.status,
+                    message: outAM.message,
+                    data: outAM.data
+                }  
             } catch (error) {
                 console.log('ERROR:', error);
                 if (!error.response) {
@@ -169,7 +165,8 @@ export const useDtrStore = defineStore('dtr', {
                 }
 
                 const { data } = error.response;
-                this.message = data.message; // error on api API
+                this.message = data;
+                return data;
             }
         },
 
@@ -188,16 +185,12 @@ export const useDtrStore = defineStore('dtr', {
                     return false; // action failed
                 }
 
-                const { data } = inPM;
-
-                this.fullname = data.remarks;
-                this.date = data.date;
-                this.inAM = data.inAM;
-                this.outAM = data.outAM;
-                this.inPM = data.inPM;
-                this.ip = data.ip;
-
-                return true;
+                return {
+                    success: true,
+                    status: inPM.status,
+                    message: inPM.message,
+                    data: inPM.data
+                }
             } catch (error) {
                 console.log('ERROR:', error);
                 if (!error.response) {
@@ -205,7 +198,8 @@ export const useDtrStore = defineStore('dtr', {
                 }
 
                 const { data } = error.response;
-                this.message = data.message; // error on api API
+                this.message = data;
+                return data;
             }
         },
 
@@ -224,17 +218,12 @@ export const useDtrStore = defineStore('dtr', {
                     return false; // action failed
                 }
 
-                const { data } = outPM;
-
-                this.fullname = data.remarks;
-                this.date = data.date;
-                this.inAM = data.inAM;
-                this.outAM = data.outAM;
-                this.inPM = data.inPM;
-                this.outPM = data.outPM;
-                this.ip = data.ip;
-
-                return true;
+                return {
+                    success: true,
+                    status: outPM.status,
+                    message: outPM.message,
+                    data: outPM.data
+                }
             } catch (error) {
                 console.log('ERROR:', error);
                 if (!error.response) {
@@ -242,7 +231,8 @@ export const useDtrStore = defineStore('dtr', {
                 }
 
                 const { data } = error.response;
-                this.message = data.message; // error on api API
+                this.message = data;
+                return data;
             }
         },
     },

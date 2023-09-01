@@ -53,6 +53,7 @@ async function submit() {
     switch (activeButton.value) {
       case 'AM-IN':
         dtr = await dtrStore.TimeInAM(emp_number.value);
+
         if(!dtr){
           return false;
         }
@@ -61,19 +62,55 @@ async function submit() {
           msg.value = dtr.message
           await updateEarlyBirdsList();
           await updateNightOwlsList();
+        }else{
+          msg.value = dtr.message
         }
+
         break;
       case 'AM-OUT':
         dtr = await dtrStore.TimeOutAM(emp_number.value);
-        msg.value = dtr ? 'Enjoy your lunch ' + dtrStore.fullname : 'Employee not found';
+
+        if(!dtr){
+          return false;
+        }
+
+        if (dtr.success) {
+          msg.value = dtr.message
+          await updateEarlyBirdsList();
+          await updateNightOwlsList();
+        }else{
+          msg.value = dtr.message
+        }
         break;
       case 'PM-IN':
         dtr = await dtrStore.TimeInPM(emp_number.value);
-        msg.value = dtr ? 'Good Afternoon ' + dtrStore.fullname : 'Employee not found';
+
+        if(!dtr){
+          return false;
+        }
+
+        if (dtr.success) {
+          msg.value = dtr.message
+          await updateEarlyBirdsList();
+          await updateNightOwlsList();
+        }else{
+          msg.value = dtr.message
+        }
         break;
       case 'PM-OUT':
         dtr = await dtrStore.TimeOutPM(emp_number.value);
-        msg.value = dtr ? 'Goodbye ' + dtrStore.fullname : 'Employee not found';
+
+        if(!dtr){
+          return false;
+        }
+
+        if (dtr.success) {
+          msg.value = dtr.message
+          await updateEarlyBirdsList();
+          await updateNightOwlsList();
+        }else{
+          msg.value = dtr.message
+        }
         break;
     }
     
@@ -82,7 +119,7 @@ async function submit() {
     }, 3000);
 
   } catch (error) {
-    console.log('ERROR:', error);
+    // console.log('ERROR:', error);
     msg.value = error;
   }
 }

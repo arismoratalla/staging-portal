@@ -13,9 +13,12 @@
 # Content-Type: application/json
 
 # POST http://172.16.110.78:3000/api/hrmis/inAM
-POST http://192.168.0.3:3000/api/hrmis/inAM
-Content-Type: application/json
+# POST http://192.168.0.3:3000/api/hrmis/inAM
+# Content-Type: application/json
 
-{
-"employee_num":"ted-0418"
-}
+# {
+# "employee_num":"ted-0418"
+# }
+
+GET http://192.168.1.2:3000/api/hrmis/earlybirds
+Content-Type: application/json

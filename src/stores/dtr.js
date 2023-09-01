@@ -2,9 +2,9 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 
 // const apiUrl = 'http://localhost:3001';
-// const apiUrl = 'http://192.168.0.6:3000';
+const apiUrl = 'http://192.168.1.2:3000';
 // const apiUrl = 'http://172.16.110.78:3000';
-const apiUrl = 'http://192.168.0.3:3000';
+// const apiUrl = 'http://192.168.0.3:3000';
 // const api = axios.create({
 //     baseURL: 'http://192.168.0.3:3000',
 // });

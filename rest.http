@@ -20,5 +20,12 @@
 # "employee_num":"jaa-0615"
 # }
 
-GET http://192.168.1.2:3000/api/hrmis/earlybirds
+# GET http://192.168.1.2:3000/api/hrmis/earlybirds
+# Content-Type: application/json
+
+POST http://157.230.245.80:3001/api/hrmis/inAM
 Content-Type: application/json
+
+{
+"employee_num":"RIJ-0311"
+}

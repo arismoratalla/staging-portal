@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 
-// const apiUrl = 'http://localhost:3001';
-const apiUrl = 'http://192.168.1.2:3000'; // apiServer - proxmox
+const apiUrl = 'http://157.230.245.80:3001'; //digital ocean
+// const apiUrl = 'http://localhost:3000';
+// const apiUrl = 'http://192.168.1.2:3000'; // apiServer - proxmox
 // const apiUrl = 'http://172.16.110.78:3000';
 // const apiUrl = 'http://192.168.0.3:3000';
 // const api = axios.create({

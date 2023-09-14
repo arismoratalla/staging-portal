@@ -13,7 +13,7 @@ export default defineConfig(() => {
             },
         },
         build: {
-            outDir: './staging',
+            outDir: './dtr',
         },
         server: {
             host: true,

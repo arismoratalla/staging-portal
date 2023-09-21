@@ -12,6 +12,7 @@ node_modules
 dist
 dist-ssr
 coverage
+dtr
 *.local
 
 /cypress/videos/
@@ -42,3 +43,4 @@ web
 rest.http
 rest.http
 .env
+rest.http

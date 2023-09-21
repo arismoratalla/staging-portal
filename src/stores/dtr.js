@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 
-const apiUrl = 'http://157.230.245.80:3001'; //digital ocean
-// const apiUrl = 'http://localhost:3000';
-// const apiUrl = 'http://192.168.1.2:3000'; // apiServer - proxmox
+// const apiUrl = 'http://157.230.245.80:3001'; //digital ocean
+const apiUrl = 'https://node-server.dost9.ph'; // apiServer - proxmox
 // const apiUrl = 'http://172.16.110.78:3000';
 // const apiUrl = 'http://192.168.0.3:3000';
+// const apiUrl = 'https://node-server.dost9.ph';
 // const api = axios.create({
 //     baseURL: 'http://192.168.0.3:3000',
 // });
@@ -58,16 +58,21 @@ export const useDtrStore = defineStore('dtr', {
          * Get Early Birds
          * @returns Object of employees
          */
-        async earlyBirds() {
+        async earlyBirds(date = null) {
             try {
-                const { data: earlyBirds } = await axios.get(apiUrl + '/api/hrmis/earlybirds');
+                // Construct the URL with the optional date query parameter
+                let url = apiUrl + '/api/hrmis/earlybirds';
+                if (date) {
+                    url += `?date=${date}`;
+                }
+
+                const { data: earlyBirds } = await axios.get(url);
 
                 if (!earlyBirds.success) {
                     return false; // action failed
                 }
 
                 const { data } = earlyBirds;
-
                 this.earlybirds = data;
             } catch (error) {
                 console.log('ERROR:', error);
@@ -81,16 +86,21 @@ export const useDtrStore = defineStore('dtr', {
          * Get Night Owls
          * @returns Object of employees
          */
-        async nightOwls() {
+        async nightOwls(date = null) {
             try {
-                const { data: nightOwls } = await axios.get(apiUrl + '/api/hrmis/nightowls');
+                // Construct the URL with the optional date query parameter
+                let url = apiUrl + '/api/hrmis/nightowls';
+                if (date) {
+                    url += `?date=${date}`;
+                }
+
+                const { data: nightOwls } = await axios.get(url);
 
                 if (!nightOwls.success) {
                     return false; // action failed
                 }
 
                 const { data } = nightOwls;
-
                 this.nightowls = data;
             } catch (error) {
                 console.log('ERROR:', error);

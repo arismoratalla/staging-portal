@@ -11,7 +11,8 @@ const router = createRouter({
                 {
                     path: '/',
                     name: 'portal',
-                    component: () => import('@/views/Portal.vue'),
+                    component: () => import('@/views/pages/auth/TimeLog.vue'),
+                    // component: () => import('@/views/Portal.vue'),
                 },
                 {
                     path: '/pinia',

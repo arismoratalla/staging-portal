@@ -225,8 +225,8 @@ async function updateNightOwlsList(date = null) {
         <Employee v-for="owl in dtrStore.nightowls" :employee="owl" :key="owl.user_id" />
     </div>
     <div class="timelog flex flex-column align-items-center justify-content-center">
-        <div class="wrapper" style="border-radius: 20px; padding: 0.2rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(0, 51, 92, 0) 75%)">
-                <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 18px">
+        <div class="wrapper" style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(0, 51, 92, 0) 75%)">
+                <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 53px">
                   <div v-if="msg" class="w-full text-center font-semibold bg-cyan-400 text-white text-2xl mb-3 p-3 border-2">
                     {{ msg }}
                   </div>
@@ -253,7 +253,6 @@ async function updateNightOwlsList(date = null) {
                   </div>
             </div>
     </div>
-
   </div>
   <DtrBirthdays simple />
 </template>
@@ -296,10 +295,6 @@ async function updateNightOwlsList(date = null) {
   background-color: rgb(220, 230, 248);
   text-align: left;  /* Overriding text alignment to left */
   /* background-color: rgb(255, 255, 255); */
-}
-
-.timelog .wrapper {
-  width: 60%;
 }
 
 .flex {
@@ -383,101 +378,4 @@ async function updateNightOwlsList(date = null) {
   color: #1a202c;
   transform: translateY(-2px);
 }
-
-/* Mobile responsiveness */
-@media only screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  .employees {
-    width: 100%;
-    height: 100%;
-    margin: 0; /* remove or reduce margins */
-    padding: 10px; /* you can reduce padding if you want */
-  }
-
-  h1, h2, h3 {
-    font-size: 24px;  /* Adjusted heading sizes */
-  }
-
-  .timelog {
-    height: 100%;
-    padding: 10px;
-    font-size: 14px; /* Reduced font size */
-  }
-
-  .timelog .child-element {
-    margin: 5px;
-    /* If children are usually displayed in a row, stack them vertically on mobile */
-    display: block;
-    width: 100%;
-  }
-
-  /* If .timelog contains a table, make it horizontally scrollable */
-  .timelog {
-    width: 100%;
-    overflow-x: auto;
-    display: block;
-  }
-
-  .timelog .wrapper {
-    width: 100%;
-  }
-  
-  .surface-card {
-    width: 80%;
-    margin: auto; /* centers the div */
-  }
-
-  .timelog .InputText {
-    width: 100%; /* full width to match the parent */
-    box-sizing: border-box; /* so that padding and border don't increase width */
-  }
-
-  .timelog {
-    width: 100%;
-  }
-
-  .font-semibold {
-    font-size: 16px;
-  }
-
-  .InputText {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .am-group, .pm-group {
-    display: block;
-  }
-}
-
-/* Tablet responsiveness */
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-  .timelog {
-    padding: 15px;
-    font-size: 16px; /* Or adjust as needed */
-  }
-
-  .timelog .child-element {
-    margin: 8px;
-  }
-
-  /* Your other tablet-specific styles */
-}
-
-/* Optional: Landscape mode */
-@media only screen and (max-width: 768px) and (orientation: landscape) {
-  .employees, .timelog {
-    width: 50%;
-    height: auto;
-    font-size: 14px;  /* Reduced font size for landscape */
-  }
-
-  /* Your other landscape mode-specific styles */
-}
-
-
-
 </style>

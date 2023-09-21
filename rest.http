@@ -20,12 +20,15 @@
 # "employee_num":"jaa-0615"
 # }
 
-# GET http://192.168.1.2:3000/api/hrmis/earlybirds
+# POST http://157.230.245.80:3001/api/hrmis/outAM
+# GET https://node-server.dost9.ph/api/hrmis/earlybirds
+# http://172.16.110.78:3000/api/auth/getWhitelistedIps
 # Content-Type: application/json
 
-POST http://157.230.245.80:3001/api/hrmis/inAM
-Content-Type: application/json
+# POST https://192.168.1.8:3000/api/hrmis/inPM
+# POST https://node-server.dost9.ph/api/hrmis/outPM
+# Content-Type: application/json
 
-{
-"employee_num":"RIJ-0311"
-}
+# {
+# "employee_num":"RBG-0110"
+# }

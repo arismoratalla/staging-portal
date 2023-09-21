@@ -18,8 +18,8 @@ watch(isSidebarActive, (newVal) => {
     }
 });
 
-// layoutConfig.menuMode.value = 'static'; // or any value that corresponds to 'layout-static'
-// layoutState.staticMenuDesktopInactive.value = true;
+layoutConfig.menuMode.value = 'static'; // or any value that corresponds to 'layout-static'
+layoutState.staticMenuDesktopInactive.value = true;
 
 const containerClass = computed(() => {
     return {
@@ -70,10 +70,10 @@ const isOutsideClicked = (event) => {
             <div class="layout-main">
                 <router-view></router-view>
             </div>
-            <app-footer></app-footer>
+            <!-- <app-footer></app-footer> -->
         </div>
-        <app-config></app-config>
-        <div class="layout-mask"></div>
+        <!-- <app-config></app-config> -->
+        <!-- <div class="layout-mask"></div> -->
     </div>
 </template>
 

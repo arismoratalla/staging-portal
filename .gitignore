@@ -15,6 +15,9 @@ coverage
 dtr
 *.local
 
+# Data
+public/data/jaxa
+
 /cypress/videos/
 /cypress/screenshots/
 

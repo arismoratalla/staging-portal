@@ -32,3 +32,8 @@
 # {
 # "employee_num":"RBG-0110"
 # }
+# GET http://localhost:3000/api/dms/login
+# Content-Type: application/json
+
+GET https://node-server.dost9.ph/api/dms/login
+Content-Type: application/json

@@ -3,8 +3,8 @@ import { defineStore } from 'pinia';
 
 // const apiUrl = 'http://157.230.245.80:3001'; //digital ocean
 const apiUrl = 'https://node-server.dost9.ph'; // apiServer - proxmox
-// const apiUrl = 'http://172.16.110.78:3000';
-// const apiUrl = 'http://192.168.0.3:3000';
+// const apiUrl = 'http://172.16.110.91:3000'; //local
+// const apiUrl = 'http://192.168.1.3:3000';
 // const apiUrl = 'https://node-server.dost9.ph';
 // const api = axios.create({
 //     baseURL: 'http://192.168.0.3:3000',

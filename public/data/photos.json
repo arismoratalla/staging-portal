@@ -254,8 +254,8 @@
         {
             "employee_id": 62,
             "fullname": "Romeo Ligalig",
-            "itemImageSrc": "data/images/photo/rml0503.png",
-            "thumbnailImageSrc": "data/images/photo/rml0503.png",
+            "itemImageSrc": "data/images/photo/rml0503.jpg",
+            "thumbnailImageSrc": "data/images/photo/rml0503.jpg",
             "bday": "2023-05-03"
         },
         {
@@ -363,7 +363,6 @@
             "thumbnailImageSrc": "data/images/photo/mre1014.png",
             "bday": "2023-12-31"
         },
-        
         {
             "employee_id": 113,
             "fullname": "Jeanevie Alama",
@@ -933,17 +932,17 @@
         },
         {
             "employee_id": 1253,
-            "fullname": "",
-            "itemImageSrc": "data/images/photo/.jpg",
-            "thumbnailImageSrc": "data/images/photo/.jpg",
-            "bday": "2023-12-31"
+            "fullname": "Jenny Nerona",
+            "itemImageSrc": "data/images/photo/jdn0727.jpg",
+            "thumbnailImageSrc": "data/images/photo/jdn0727.jpg",
+            "bday": "2023-07-27"
         },
         {
             "employee_id": 1254,
-            "fullname": "",
-            "itemImageSrc": "data/images/photo/.jpg",
-            "thumbnailImageSrc": "data/images/photo/.jpg",
-            "bday": "2023-12-31"
+            "fullname": "Ben Joseph Carpio",
+            "itemImageSrc": "data/images/photo/bcc1009.jpg",
+            "thumbnailImageSrc": "data/images/photo/bcc1009.jpg",
+            "bday": "2023-10-09"
         },
         {
             "employee_id": 1255,

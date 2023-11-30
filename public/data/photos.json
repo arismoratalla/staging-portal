@@ -933,7 +933,7 @@
         {
             "employee_id": 1253,
             "fullname": "Jenny Nerona",
-            "itemImageSrc": "data/images/photo/jdn0727.jpg",
+            "itemImageSrc": "data/images/photo/jdn0727.png",
             "thumbnailImageSrc": "data/images/photo/jdn0727.png",
             "bday": "2023-07-27"
         },
@@ -941,7 +941,7 @@
             "employee_id": 1254,
             "fullname": "Ben Joseph Carpio",
             "itemImageSrc": "data/images/photo/bcc1009.png",
-            "thumbnailImageSrc": "data/images/photo/bcc1009.jpg",
+            "thumbnailImageSrc": "data/images/photo/bcc1009.png",
             "bday": "2023-10-09"
         },
         {

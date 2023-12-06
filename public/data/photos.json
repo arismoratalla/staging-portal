@@ -471,8 +471,8 @@
         {
             "employee_id": 244,
             "fullname": "Kim Carumba",
-            "itemImageSrc": "data/images/photo/krc0108.jpg",
-            "thumbnailImageSrc": "data/images/photo/krc0108.jpg",
+            "itemImageSrc": "data/images/photo/krc0108.png",
+            "thumbnailImageSrc": "data/images/photo/krc0108.png",
             "bday": "2023-01-08"
         },
         {
@@ -523,6 +523,13 @@
             "itemImageSrc": "data/images/photo/erz0614.jpg",
             "thumbnailImageSrc": "data/images/photo/erz0614.jpg",
             "bday": "2023-06-14"
+        },
+        {
+            "employee_id": 313,
+            "fullname": "Dores Calago",
+            "itemImageSrc": "data/images/photo/dbc0220.png",
+            "thumbnailImageSrc": "data/images/photo/dbc0220.png",
+            "bday": "2023-02-20"
         },
         {
             "employee_id": 326,
@@ -674,9 +681,9 @@
         {
             "employee_id": 1215,
             "fullname": "Marvin Basira",
-            "itemImageSrc": "data/images/photo/mbb0704.jpg",
-            "thumbnailImageSrc": "data/images/photo/mbb0704.jpg",
-            "bday": "2023-07-04"
+            "itemImageSrc": "data/images/photo/mbb0714.jpg",
+            "thumbnailImageSrc": "data/images/photo/mbb0714.jpg",
+            "bday": "2023-07-14"
         },
         {
             "employee_id": 1216,
@@ -946,9 +953,9 @@
         },
         {
             "employee_id": 1255,
-            "fullname": "",
-            "itemImageSrc": "data/images/photo/.jpg",
-            "thumbnailImageSrc": "data/images/photo/.jpg",
+            "fullname": "Fatima Wahida Himpon",
+            "itemImageSrc": "data/images/photo/fjh1202.png",
+            "thumbnailImageSrc": "data/images/photo/fjh1202.png",
             "bday": "2023-12-31"
         },
         {
